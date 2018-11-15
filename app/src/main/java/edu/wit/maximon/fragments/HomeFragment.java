@@ -8,6 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.wit.maximon.R;
 
 /**
@@ -65,7 +74,18 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        final View view = inflater.inflate(R.layout.fragment_home, container, false);
+        final PieChart usageChart = view.findViewById(R.id.usageChart);
+        final PieData data = new PieData();
+        final List<PieEntry> entries = new ArrayList<>();
+        final PieEntry entry = new PieEntry(66, "Test 1");
+        final PieEntry entry2 = new PieEntry(33, "Test 2");
+        entries.add(entry);
+        entries.add(entry2);
+        final PieDataSet dataSet = new PieDataSet(entries,"Usage");
+        data.setDataSet(dataSet);
+        usageChart.setData(data);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
