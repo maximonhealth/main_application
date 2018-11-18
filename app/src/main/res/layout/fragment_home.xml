@@ -5,7 +5,8 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.HomeFragment">
+    tools:context=".fragments.HomeFragment"
+    android:background="@android:color/white">
 
     <!-- TODO: Update blank fragment layout -->
     <com.github.mikephil.charting.charts.PieChart

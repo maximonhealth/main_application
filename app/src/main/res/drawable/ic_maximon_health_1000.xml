@@ -1,0 +1,7 @@
+<vector android:autoMirrored="true" android:height="24dp"
+    android:viewportHeight="1000" android:viewportWidth="1000"
+    android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#eee" android:name="Ellipse 1" android:pathData="m500 0c276.1 0 500 223.9 500 500c0 276.1 -223.9 500 -500 500c-276.1 0 -500 -223.9 -500 -500c0 -276.1 223.9 -500 500 -500z"/>
+    <path android:fillColor="#809dce" android:name="Polygon 1 copy" android:pathData="m631.5 292.2 239.7 414.8 -479.1 0.2 239.4 -415z"/>
+    <path android:fillColor="#326fd3" android:name="Polygon 1" android:pathData="m368.5 292.2 239.7 414.8 -479.1 0.2 239.4 -415z"/>
+</vector>
