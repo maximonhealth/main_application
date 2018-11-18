@@ -91,5 +91,4 @@ public class SettingsFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
-
 }
