@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.CalendarView;
 import android.widget.TextView;
 
 import edu.wit.maximon.fragments.HomeFragment;
@@ -16,7 +17,6 @@ import edu.wit.maximon.fragments.SettingsFragment;
 import edu.wit.maximon.fragments.TimelineFragment;
 
 public class MainActivity extends AppCompatActivity implements OnFragmentInteractionListener {
-
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setSelectedItemId(R.id.navigation_home);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
     }
 
     @Override
