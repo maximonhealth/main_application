@@ -1,5 +1,6 @@
 package edu.wit.maximon.fragments;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
@@ -25,7 +26,8 @@ import edu.wit.maximon.R;
  * Use the {@link TimelineFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TimelineFragment extends Fragment {
+@SuppressLint("ValidFragment")
+public class TimelineFragment extends CustomFragment {
     private Activity mActivity;
 
     Calendar calendar;
@@ -50,25 +52,12 @@ public class TimelineFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public TimelineFragment() {
-        // Required empty public constructor
+    @SuppressLint("ValidFragment")
+    public TimelineFragment(Activity parentActivity) {
+        super(parentActivity);
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1
-     * @param param2 Parameter 2
-     * @return A new instance of fragment TimelineFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static TimelineFragment newInstance() {
-        TimelineFragment fragment = new TimelineFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState ) {
