@@ -18,14 +18,6 @@ import java.util.Calendar;
 import edu.wit.maximon.R;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link TimelineFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link TimelineFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 @SuppressLint("ValidFragment")
 public class TimelineFragment extends CustomFragment {
     private Activity mActivity;
@@ -61,10 +53,10 @@ public class TimelineFragment extends CustomFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState ) {
-        View view = inflater.inflate(R.layout.Fragment_TimelineFragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_timeline, container, false);
+        return view;
     }
 
-    @Override
 
     public void setCurrentMonthName(){
 

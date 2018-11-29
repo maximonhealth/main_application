@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.widget.CalendarView;
 import android.widget.TextView;
 
+import edu.wit.maximon.fragments.CustomFragment;
 import edu.wit.maximon.fragments.HomeFragment;
 import edu.wit.maximon.fragments.OnFragmentInteractionListener;
 import edu.wit.maximon.fragments.SettingsFragment;
@@ -26,21 +27,22 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_timeline:
-                    applyFragment(new TimelineFragment(), R.id.fragment);
+                    applyFragment(new TimelineFragment(MainActivity.this), R.id.fragment);
                     break;
                 case R.id.navigation_home:
-                    applyFragment(new HomeFragment(), R.id.fragment);
+                    applyFragment(new HomeFragment(MainActivity.this), R.id.fragment);
                     break;
                 case R.id.navigation_settings:
-                    applyFragment(new SettingsFragment(), R.id.fragment);
+                    applyFragment(new SettingsFragment(MainActivity.this), R.id.fragment);
                     break;
             }
             return true;
         }
     };
 
-    private void applyFragment(final Fragment fragment, final int id) {
+    private void applyFragment(final CustomFragment fragment, final int id) {
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        fragment.setParentActivity(this);
         transaction.replace(id, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
@@ -50,6 +52,10 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        final CustomFragment fragment = (CustomFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
+        if(fragment.getParentActivity() == null) {
+            fragment.setParentActivity(this);
+        }
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setSelectedItemId(R.id.navigation_home);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
