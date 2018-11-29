@@ -238,19 +238,19 @@
 
         <TextView
             android:id="@+id/description"
-            android:layout_width="225dp"
-            android:layout_height="33dp"
+            android:layout_width="307dp"
+            android:layout_height="41dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Give notification to get off immediately when over limit set"
+            android:text="A notification that alerts you of the fact you have exceeded your maximum usage goal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.062"
+            app:layout_constraintHorizontal_bias="0.177"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.833" />
+            app:layout_constraintVertical_bias="1.0" />
 
     </android.support.constraint.ConstraintLayout>
 

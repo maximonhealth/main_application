@@ -34,15 +34,15 @@ public class SettingsFragment extends CustomFragment {
         super(parentActivity);
     }
 
-    SharedPreferences mySettings = getActivity().getSharedPreferences("Settings", Context.MODE_PRIVATE);
+    SharedPreferences mySettings = getParentActivity().getSharedPreferences("Settings", Context.MODE_PRIVATE);
     SharedPreferences.Editor editor = mySettings.edit();
 
     int id = 1;
     //access individual setting preferences
-    EditText minGoal = (EditText) findViewById(R.id.minGoal);
-    EditText maxGoal = (EditText) findViewById(R.id.maxGoal);
-    Switch notification_Toggle = (Switch) findViewById(R.id.notification_Toggle);
-    Switch forceOff_Toggle = (Switch) findViewById(R.id.forceOff_Toggle);
+    //EditText minGoal = (EditText) findViewById(R.id.minGoal);
+    //EditText maxGoal = (EditText) findViewById(R.id.maxGoal);
+   // Switch notification_Toggle = (Switch) findViewById(R.id.notification_Toggle);
+    //Switch forceOff_Toggle = (Switch) findViewById(R.id.forceOff_Toggle);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
