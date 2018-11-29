@@ -10,6 +10,6 @@
         android:top="1dp"
         android:bottom="1dp"/>
 
-    <solid android:color="@color/colorPrimaryDark"/>
+    <solid android:color="@color/colorAccent"/>
 
 </shape>
