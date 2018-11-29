@@ -3,12 +3,15 @@ package edu.wit.maximon.fragments;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Switch;
 
 import edu.wit.maximon.R;
 
@@ -31,7 +34,15 @@ public class SettingsFragment extends CustomFragment {
         super(parentActivity);
     }
 
+    SharedPreferences mySettings = getActivity().getSharedPreferences("Settings", Context.MODE_PRIVATE);
+    SharedPreferences.Editor editor = mySettings.edit();
 
+    int id = 1;
+    //access individual setting preferences
+    EditText minGoal = (EditText) findViewById(R.id.minGoal);
+    EditText maxGoal = (EditText) findViewById(R.id.maxGoal);
+    Switch notification_Toggle = (Switch) findViewById(R.id.notification_Toggle);
+    Switch forceOff_Toggle = (Switch) findViewById(R.id.forceOff_Toggle);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,6 +51,7 @@ public class SettingsFragment extends CustomFragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
