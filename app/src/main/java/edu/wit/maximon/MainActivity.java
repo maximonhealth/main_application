@@ -69,13 +69,12 @@ public class MainActivity extends ActivityWrapper implements OnFragmentInteracti
 
     }
 
-    public static List<UsageStats> queryDailyUsageStats(final Context context) {
+    public static List<UsageStats> queryDailyUsageStats(final Context context, final Calendar calendarDay) {
         UsageStatsManager usageStatsManager = (UsageStatsManager) context.getSystemService(Context.USAGE_STATS_SERVICE);
-        final Calendar calendar = Calendar.getInstance();
+        final Calendar calendar = (Calendar) calendarDay.clone();
         calendar.add(Calendar.DAY_OF_YEAR, -1);
-        long start = calendar.getTimeInMillis();
-        long end = System.currentTimeMillis();
-        return usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, start, end);
+
+        return usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, calendar.getTimeInMillis(), calendarDay.getTimeInMillis());
     }
 
 
