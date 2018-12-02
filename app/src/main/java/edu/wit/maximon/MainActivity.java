@@ -11,31 +11,29 @@ import android.view.MenuItem;
 import android.widget.CalendarView;
 import android.widget.TextView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import edu.wit.maximon.fragments.CustomFragment;
 import edu.wit.maximon.fragments.HomeFragment;
 import edu.wit.maximon.fragments.OnFragmentInteractionListener;
 import edu.wit.maximon.fragments.SettingsFragment;
 import edu.wit.maximon.fragments.TimelineFragment;
 
-public class MainActivity extends AppCompatActivity implements OnFragmentInteractionListener {
+public class MainActivity extends ActivityWrapper implements OnFragmentInteractionListener {
 
+
+    private static int selectedTab = R.id.navigation_home;
+
+    private Map<Integer,CustomFragment> fragmentMap = new HashMap<>();
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_timeline:
-                    applyFragment(new TimelineFragment(MainActivity.this), R.id.fragment);
-                    break;
-                case R.id.navigation_home:
-                    applyFragment(new HomeFragment(MainActivity.this), R.id.fragment);
-                    break;
-                case R.id.navigation_settings:
-                    applyFragment(new SettingsFragment(MainActivity.this), R.id.fragment);
-                    break;
-            }
+            selectedTab = item.getItemId();
+            applyFragment(fragmentMap.get(selectedTab), R.id.fragment);
             return true;
         }
     };
@@ -52,15 +50,20 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        fragmentMap.put(R.id.navigation_timeline, new TimelineFragment(this));
+        fragmentMap.put(R.id.navigation_home, new HomeFragment(this));
+        fragmentMap.put(R.id.navigation_settings, new SettingsFragment(this));
         final CustomFragment fragment = (CustomFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
         if(fragment.getParentActivity() == null) {
             fragment.setParentActivity(this);
         }
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setSelectedItemId(R.id.navigation_home);
+        navigation.setSelectedItemId(selectedTab);
+        applyFragment(fragmentMap.get(selectedTab), R.id.fragment);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
     }
+
 
     @Override
     public void onFragmentInteraction(Uri uri) {

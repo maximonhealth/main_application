@@ -2,29 +2,20 @@ package edu.wit.maximon.setup;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AppOpsManager;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Process;
-import android.widget.Button;
 
 import edu.wit.maximon.R;
 import edu.wit.maximon.fragments.CustomFragment;
 import edu.wit.maximon.fragments.OnFragmentInteractionListener;
 
-import static android.app.AppOpsManager.MODE_ALLOWED;
-import static android.app.AppOpsManager.OPSTR_GET_USAGE_STATS;
-
 
 @SuppressLint("ValidFragment")
-public class PermissionsFragment extends CustomFragment {
-
+public class DefaultSettingsFragment extends CustomFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -36,10 +27,9 @@ public class PermissionsFragment extends CustomFragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public PermissionsFragment(Activity parentActivity) {
+    public DefaultSettingsFragment(Activity parentActivity) {
         super(parentActivity);
     }
-
 
 
 
@@ -56,15 +46,7 @@ public class PermissionsFragment extends CustomFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment_permissions, container, false);
-        final Button openSettingsButton = view.findViewById(R.id.openSettingBtn);
-        openSettingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
-            }
-        });
-        return view;
+        return inflater.inflate(R.layout.fragment_default_settings, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -77,28 +59,11 @@ public class PermissionsFragment extends CustomFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        final Button nextButton = this.parentActivity.findViewById(R.id.nextButton);
-        if(!checkForPermission(context)) {
-            nextButton.setEnabled(false);
-        } else {
-            nextButton.setEnabled(true);
-        }
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
-        }
-
-    }
-    @Override
-    public void onResume() {
-        super.onResume();
-        final Button nextButton = this.parentActivity.findViewById(R.id.nextButton);
-        if(!checkForPermission(this.getContext())) {
-            nextButton.setEnabled(false);
-        } else {
-            nextButton.setEnabled(true);
         }
     }
 
@@ -107,10 +72,4 @@ public class PermissionsFragment extends CustomFragment {
         super.onDetach();
         mListener = null;
     }
-    private boolean checkForPermission(Context context) {
-        AppOpsManager appOps = (AppOpsManager) context.getSystemService(Context.APP_OPS_SERVICE);
-        int mode = appOps.checkOpNoThrow(OPSTR_GET_USAGE_STATS, Process.myUid(), context.getPackageName());
-        return mode == MODE_ALLOWED;
-    }
-
 }

@@ -16,11 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.wit.maximon.fragments.OnFragmentInteractionListener;
+import edu.wit.maximon.setup.DefaultSettingsFragment;
 import edu.wit.maximon.setup.PermissionsFragment;
 
-public class SetupActivity extends AppCompatActivity implements OnFragmentInteractionListener {
+public class SetupActivity extends ActivityWrapper implements OnFragmentInteractionListener {
 
-    private int currentLocation = 0;
+    private static int currentLocation = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,7 @@ public class SetupActivity extends AppCompatActivity implements OnFragmentIntera
         final Button nextButton = findViewById(R.id.nextButton);
         final List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(new PermissionsFragment(this));
+        fragmentList.add(new DefaultSettingsFragment(this));
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,8 +39,6 @@ public class SetupActivity extends AppCompatActivity implements OnFragmentIntera
                     final SharedPreferences preferences = SetupActivity.this.getSharedPreferences("default_prefs", 0);
                     preferences.edit().putBoolean("completedSetup", true).apply();
                     final Intent intent = new Intent(SetupActivity.this, MainActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
                     startActivity(intent);
                     return;
                 }
