@@ -77,7 +77,7 @@
             app:layout_constraintVertical_bias="0.079" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/maxTimeInput"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -101,10 +101,10 @@
             android:layout_marginBottom="8dp"
             android:text="minutes"
             android:textColor="#FFFFFF"
-            app:layout_constraintBottom_toBottomOf="@+id/editText"
+            app:layout_constraintBottom_toBottomOf="@+id/maxTimeInput"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/editText" />
+            app:layout_constraintStart_toEndOf="@+id/maxTimeInput" />
 
         <TextView
             android:id="@+id/textView9"
@@ -125,7 +125,7 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <Switch
-            android:id="@+id/switch1"
+            android:id="@+id/notificationSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"

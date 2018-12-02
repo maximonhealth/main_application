@@ -10,10 +10,12 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.CalendarView;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -72,8 +74,12 @@ public class MainActivity extends ActivityWrapper implements OnFragmentInteracti
     public static List<UsageStats> queryDailyUsageStats(final Context context, final Calendar calendarDay) {
         UsageStatsManager usageStatsManager = (UsageStatsManager) context.getSystemService(Context.USAGE_STATS_SERVICE);
         final Calendar calendar = (Calendar) calendarDay.clone();
-        calendar.add(Calendar.DAY_OF_YEAR, -1);
-
+        calendar.set(Calendar.HOUR, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
+        Log.d("CAL_INFO", simpleDateFormat.format(calendar.getTime()));
         return usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, calendar.getTimeInMillis(), calendarDay.getTimeInMillis());
     }
 
