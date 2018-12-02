@@ -2,6 +2,8 @@ package edu.wit.maximon.fragments;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.usage.UsageStats;
+import android.app.usage.UsageStatsManager;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import edu.wit.maximon.R;
@@ -59,6 +62,15 @@ public class HomeFragment extends CustomFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_home, container, false);
+        UsageStatsManager usageStatsManager = (UsageStatsManager) this.getActivity().getSystemService(Context.USAGE_STATS_SERVICE);
+        final Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, -1);
+        long start = calendar.getTimeInMillis();
+        long end = System.currentTimeMillis();
+        final List<UsageStats> stats = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, start, end);
+        for(final UsageStats s : stats) {
+//            s.
+        }
         final PieChart usageChart = view.findViewById(R.id.usageChart);
         final PieData data = new PieData();
         final List<PieEntry> entries = new ArrayList<>();
