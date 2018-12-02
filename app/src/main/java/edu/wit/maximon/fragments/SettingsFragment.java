@@ -40,7 +40,6 @@ public class SettingsFragment extends CustomFragment {
 
     int id = 1;
     //access individual setting preferences
-    //EditText minGoal = (EditText) findViewById(R.id.minGoal);
     //EditText maxGoal = (EditText) findViewById(R.id.maxGoal);
     //Switch notification_Toggle = (Switch) findViewById(R.id.notification_Toggle);
     //Switch forceOff_Toggle = (Switch) findViewById(R.id.forceOff_Toggle);
@@ -67,11 +66,7 @@ public class SettingsFragment extends CustomFragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
-        notification_Toggle.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Log.v("notification_Toggle", "Notifications turned on");
-            }
-        });
+
     }
 
     @Override
