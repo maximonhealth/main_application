@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import edu.wit.maximon.MainActivity;
 import edu.wit.maximon.R;
 
 @SuppressLint("ValidFragment")
@@ -62,15 +63,7 @@ public class HomeFragment extends CustomFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_home, container, false);
-        UsageStatsManager usageStatsManager = (UsageStatsManager) this.getActivity().getSystemService(Context.USAGE_STATS_SERVICE);
-        final Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DAY_OF_YEAR, -1);
-        long start = calendar.getTimeInMillis();
-        long end = System.currentTimeMillis();
-        final List<UsageStats> stats = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, start, end);
-        for(final UsageStats s : stats) {
-//            s.
-        }
+        final List<UsageStats> stats = MainActivity.queryDailyUsageStats(this.getParentActivity());
         final PieChart usageChart = view.findViewById(R.id.usageChart);
         final PieData data = new PieData();
         final List<PieEntry> entries = new ArrayList<>();

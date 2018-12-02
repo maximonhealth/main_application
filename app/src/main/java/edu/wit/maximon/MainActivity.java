@@ -1,5 +1,8 @@
 package edu.wit.maximon;
 
+import android.app.usage.UsageStats;
+import android.app.usage.UsageStatsManager;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,7 +14,9 @@ import android.view.MenuItem;
 import android.widget.CalendarView;
 import android.widget.TextView;
 
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import edu.wit.maximon.fragments.CustomFragment;
@@ -62,6 +67,15 @@ public class MainActivity extends ActivityWrapper implements OnFragmentInteracti
         applyFragment(fragmentMap.get(selectedTab), R.id.fragment);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+    }
+
+    public static List<UsageStats> queryDailyUsageStats(final Context context) {
+        UsageStatsManager usageStatsManager = (UsageStatsManager) context.getSystemService(Context.USAGE_STATS_SERVICE);
+        final Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, -1);
+        long start = calendar.getTimeInMillis();
+        long end = System.currentTimeMillis();
+        return usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, start, end);
     }
 
 
