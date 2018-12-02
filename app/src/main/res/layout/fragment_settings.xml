@@ -8,72 +8,6 @@
     android:background="@android:color/white"
     tools:context=".fragments.SettingsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <android.support.constraint.ConstraintLayout
-
-        android:id="@+id/tableRow"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/cell_shape"
-        android:padding="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_conversion_absoluteHeight="55dp"
-        tools:layout_conversion_absoluteWidth="384dp">
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="Minimum Goal: "
-            android:textSize="15dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.39"
-            tools:layout_conversion_absoluteHeight="21dp"
-            tools:layout_conversion_absoluteWidth="105dp"></TextView>
-
-        <EditText
-            android:id="@+id/minGoal"
-            android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="148dp"
-            android:layout_marginTop="8dp"
-            android:padding="3dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_conversion_absoluteHeight="30dp"
-            tools:layout_conversion_absoluteWidth="76dp"></EditText>
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="16dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="minutes"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/minGoal"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.478" />
-
-    </android.support.constraint.ConstraintLayout>
-
     <android.support.constraint.ConstraintLayout
 
         android:id="@+id/tableRow2"
@@ -88,7 +22,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.893"
+        app:layout_constraintVertical_bias="0.0"
         tools:layout_conversion_absoluteHeight="55dp"
         tools:layout_conversion_absoluteWidth="384dp">
 
@@ -153,7 +87,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.281"
+        app:layout_constraintVertical_bias="0.125"
         tools:layout_conversion_absoluteHeight="55dp"
         tools:layout_conversion_absoluteWidth="384dp">
 
@@ -203,7 +137,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.459"
+        app:layout_constraintVertical_bias="0.279"
         tools:layout_conversion_absoluteHeight="55dp"
         tools:layout_conversion_absoluteWidth="384dp">
 
@@ -269,7 +203,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.665"
+        app:layout_constraintVertical_bias="0.481"
         tools:layout_conversion_absoluteHeight="55dp"
         tools:layout_conversion_absoluteWidth="384dp">
 

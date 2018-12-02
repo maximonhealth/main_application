@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.util.Log;
 
 import edu.wit.maximon.R;
 
@@ -41,7 +42,7 @@ public class SettingsFragment extends CustomFragment {
     //access individual setting preferences
     //EditText minGoal = (EditText) findViewById(R.id.minGoal);
     //EditText maxGoal = (EditText) findViewById(R.id.maxGoal);
-   // Switch notification_Toggle = (Switch) findViewById(R.id.notification_Toggle);
+    //Switch notification_Toggle = (Switch) findViewById(R.id.notification_Toggle);
     //Switch forceOff_Toggle = (Switch) findViewById(R.id.forceOff_Toggle);
 
     @Override
@@ -62,10 +63,15 @@ public class SettingsFragment extends CustomFragment {
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    public void onSwitch(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+        notification_Toggle.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.v("notification_Toggle", "Notifications turned on");
+            }
+        });
     }
 
     @Override
