@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,6 +57,8 @@ public class DefaultSettingsFragment extends CustomFragment {
         final SharedPreferences preferences = this.getParentActivity().getSharedPreferences("default_prefs", 0);
         final View view = inflater.inflate(R.layout.fragment_default_settings, container, false);
         final EditText maxTimeInput = view.findViewById(R.id.maxTimeInput);
+        final Button nextButton = this.parentActivity.findViewById(R.id.nextButton);
+        nextButton.setEnabled(false);
         maxTimeInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -64,7 +67,17 @@ public class DefaultSettingsFragment extends CustomFragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                preferences.edit().putInt("max_time", Integer.parseInt(s.toString())).apply();
+                final String input = s.toString();
+                if(input != null || input.trim().length() > 0) {
+                    try {
+                        preferences.edit().putFloat("max_time", Float.parseFloat(input.trim())).apply();
+                        nextButton.setEnabled(true);
+                    } catch(final NumberFormatException e) {
+                        Log.d("MAXIMON_HEALTH", "Was unable to parse number!");
+                    }
+                } else {
+                    nextButton.setEnabled(false);
+                }
             }
 
             @Override

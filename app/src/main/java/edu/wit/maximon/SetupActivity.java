@@ -56,6 +56,14 @@ public class SetupActivity extends ActivityWrapper implements OnFragmentInteract
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(currentLocation > 0) {
+            currentLocation--;
+        }
+    }
+
+    @Override
     public void onFragmentInteraction(Uri uri) {
 
     }

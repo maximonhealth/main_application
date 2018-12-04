@@ -1,15 +1,37 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<shape
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <corners
-        android:radius="7dp" />
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="false">
+        <shape
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            >
+            <corners
+                android:radius="7dp" />
 
-    <padding
-        android:left="1dp"
-        android:right="1dp"
-        android:top="1dp"
-        android:bottom="1dp"/>
+            <padding
+                android:left="1dp"
+                android:right="1dp"
+                android:top="1dp"
+                android:bottom="1dp"/>
 
-    <solid android:color="@color/colorAccent"/>
+            <solid android:color="@color/colorAccentLight"/>
 
-</shape>
+        </shape>
+    </item>
+    <item android:state_enabled="true">
+        <shape
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            >
+            <corners
+                android:radius="7dp" />
+
+            <padding
+                android:left="1dp"
+                android:right="1dp"
+                android:top="1dp"
+                android:bottom="1dp"/>
+
+            <solid android:color="@color/colorAccent"/>
+
+        </shape>
+    </item>
+
+</selector>
