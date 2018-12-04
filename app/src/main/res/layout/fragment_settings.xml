@@ -51,22 +51,26 @@
             android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/maxGoal"
-            app:layout_constraintHorizontal_bias="0.41"
+            app:layout_constraintHorizontal_bias="0.615"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.39"
             tools:layout_conversion_absoluteHeight="27dp"
             tools:layout_conversion_absoluteWidth="115dp" />
 
         <EditText
             android:id="@+id/maxGoal"
-            android:layout_width="60dp"
+            android:layout_width="53dp"
             android:layout_height="34dp"
+            android:hint="2"
+            android:lines="1"
+            android:maxLines="1"
             android:padding="3dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.447"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.476"
             tools:layout_conversion_absoluteHeight="36dp"
             tools:layout_conversion_absoluteWidth="75dp" />
 
