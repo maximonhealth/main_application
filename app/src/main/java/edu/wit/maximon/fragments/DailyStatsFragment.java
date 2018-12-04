@@ -4,8 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.usage.UsageStats;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,18 +69,26 @@ public class DailyStatsFragment extends CustomFragment {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_daily_stats, container, false);
         final List<UsageStats> stats = MainActivity.queryDailyUsageStats(this.getContext(), this.currentDate);
+        final SharedPreferences preferences = this.getContext().getSharedPreferences("default_prefs", 0);
+        final float maxTime = preferences.getFloat("max_time", 0);
         Log.d("DAY_STAT", String.format("Stats Length: %d", stats.size()));
+        long totalTime = 0;
         for(final UsageStats stat : stats) {
             Log.d("DAY_STAT", String.format("Package: %s Time: %s", stat.getPackageName(), stat.getTotalTimeInForeground()));
+            totalTime += stat.getTotalTimeInForeground();
         }
+        final float totalTimeInHours = totalTime/1000f/60f/60f;
         final PieChart usageChart = view.findViewById(R.id.usageChart);
         final PieData data = new PieData();
         final List<PieEntry> entries = new ArrayList<>();
-        final PieEntry entry = new PieEntry(66, "Test 1");
-        final PieEntry entry2 = new PieEntry(33, "Test 2");
+        final PieEntry entry = new PieEntry(totalTimeInHours, "Usage");
+        final PieEntry entry2 = new PieEntry(maxTime - totalTimeInHours, "Time Left");
         entries.add(entry);
         entries.add(entry2);
         final PieDataSet dataSet = new PieDataSet(entries,"Usage");
+        final int color1 = Color.parseColor("#"+Integer.toHexString(ContextCompat.getColor(this.getContext(), R.color.colorAccent)));
+        final int color2 = Color.parseColor("#"+Integer.toHexString(ContextCompat.getColor(this.getContext(), R.color.colorPrimaryLight)));
+        dataSet.setColors(color1, color2);
         data.setDataSet(dataSet);
         usageChart.setData(data);
         return view;

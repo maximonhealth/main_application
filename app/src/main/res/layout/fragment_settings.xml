@@ -5,7 +5,7 @@
     android:id="@+id/tableConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/colorBackground"
     tools:context=".fragments.SettingsFragment">
 
     <android.support.constraint.ConstraintLayout
