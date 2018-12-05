@@ -62,7 +62,7 @@ public class SettingsFragment extends CustomFragment {
         final SharedPreferences preferences = getParentActivity().getSharedPreferences("default_prefs", Context.MODE_PRIVATE);
         final Switch notificationToggle = view.findViewById(R.id.notification_Toggle);
         final EditText maxGoalInput = view.findViewById(R.id.maxGoal);
-        maxGoalInput.setText(String.format("%f", preferences.getFloat("max_time", 3)));
+        maxGoalInput.setText(String.format("%.2f", preferences.getFloat("max_time", 3)));
         maxGoalInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
