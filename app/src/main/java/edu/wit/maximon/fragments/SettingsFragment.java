@@ -2,18 +2,13 @@ package edu.wit.maximon.fragments;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.service.notification.NotificationListenerService;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.NotificationCompat;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +16,8 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.util.Log;
+import android.widget.Toast;
 
-import edu.wit.maximon.MainActivity;
 import edu.wit.maximon.R;
 
 
@@ -44,10 +39,6 @@ public class SettingsFragment extends CustomFragment {
         super(parentActivity);
     }
 
-    SharedPreferences mySettings = getParentActivity().getSharedPreferences("default_prefs", Context.MODE_PRIVATE);
-    SharedPreferences.Editor editor = mySettings.edit();
-
-    int id = 1;
     //access individual setting preferences
     //EditText maxGoal = (EditText) findViewById(R.id.maxGoal);
     //Switch notification_Toggle = (Switch) findViewById(R.id.notification_Toggle);
@@ -67,7 +58,44 @@ public class SettingsFragment extends CustomFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false);
+        final View view = inflater.inflate(R.layout.fragment_settings, container, false);
+        final SharedPreferences preferences = getParentActivity().getSharedPreferences("default_prefs", Context.MODE_PRIVATE);
+        final Switch notificationToggle = view.findViewById(R.id.notification_Toggle);
+        final EditText maxGoalInput = view.findViewById(R.id.maxGoal);
+        maxGoalInput.setText(String.format("%f", preferences.getFloat("max_time", 3)));
+        maxGoalInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                final String input = s.toString();
+                if(input != null || input.trim().length() > 0) {
+                    try {
+                        preferences.edit().putFloat("max_time", Float.parseFloat(input.trim())).apply();
+                    } catch(final NumberFormatException e) {
+                        Log.d("MAXIMON_HEALTH", "Was unable to parse number!");
+                        final Toast toast = Toast.makeText(SettingsFragment.this.getContext(), "Was unable to parse number!", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        notificationToggle.setChecked(preferences.getBoolean("notifications", false));
+        notificationToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                preferences.edit().putBoolean("notifications", isChecked).apply();
+            }
+        });
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -94,15 +122,4 @@ public class SettingsFragment extends CustomFragment {
         super.onDetach();
         mListener = null;
     }
-
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if(isChecked) {
-            Log.v("PB", "Notifications are currently ON");
-        }
-        else {
-            Log.v("PB", "Notifications are currently OFF");
-        }
-    }
 }
-
-

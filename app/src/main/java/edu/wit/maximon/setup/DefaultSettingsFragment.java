@@ -16,10 +16,13 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import edu.wit.maximon.R;
 import edu.wit.maximon.fragments.CustomFragment;
 import edu.wit.maximon.fragments.OnFragmentInteractionListener;
+import edu.wit.maximon.fragments.SettingsFragment;
+import edu.wit.maximon.fragments.TimelineFragment;
 
 
 @SuppressLint("ValidFragment")
@@ -74,6 +77,8 @@ public class DefaultSettingsFragment extends CustomFragment {
                         nextButton.setEnabled(true);
                     } catch(final NumberFormatException e) {
                         Log.d("MAXIMON_HEALTH", "Was unable to parse number!");
+                        final Toast toast = Toast.makeText(DefaultSettingsFragment.this.getContext(), "Was unable to parse number!", Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                 } else {
                     nextButton.setEnabled(false);

@@ -23,6 +23,7 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -55,6 +56,7 @@ public class DailyStatsFragment extends CustomFragment {
     public DailyStatsFragment(Activity parentActivity, final Calendar currentDate) {
         super(parentActivity);
         this.currentDate = currentDate;
+        Log.d("DAILY_STAT", "REACHED");
     }
 
     public DailyStatsFragment(){
@@ -77,27 +79,21 @@ public class DailyStatsFragment extends CustomFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_daily_stats, container, false);
-        final List<UsageStats> stats = MainActivity.queryDailyUsageStats(this.getContext(), this.currentDate);
+        if(currentDate == null) {
+            return view;
+        }
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
+        final Calendar currentDay = MainActivity.floorToMidnight(Calendar.getInstance());
+        final int compare = currentDate.compareTo(currentDay);
+        Log.d("DAILY_STAT", String.format("Current Day: %s Current Date: %s Compare %d", simpleDateFormat.format(currentDay.getTime()), simpleDateFormat.format(currentDate.getTime()), compare));
+        final List<UsageStats> stats = MainActivity.queryDailyUsageStats(this.getContext(), this.currentDate, compare != 0);
         final SharedPreferences preferences = this.getContext().getSharedPreferences("default_prefs", 0);
         final float maxTime = preferences.getFloat("max_time", 0);
         Log.d("DAY_STAT", String.format("Stats Length: %d", stats.size()));
         long totalTime = 0;
-        final Comparator<UsageStats> usageStatsComparator = new Comparator<UsageStats>() {
-            @Override
-            public int compare(UsageStats o1, UsageStats o2) {
-                if (o1.getTotalTimeInForeground() > o2.getTotalTimeInForeground()) {
-                    return -1;
-                }
-                if(o1.getTotalTimeInForeground() == o2.getTotalTimeInForeground()) {
-                    return 0;
-                }
-                return 1;
-            }
-        };
-        Collections.sort(stats, usageStatsComparator);
         final List<AppInfoItem> appInfoItems = new ArrayList<>();
         for(final UsageStats stat : stats) {
-            Log.d("DAY_STAT", String.format("Package: %s Time: %s", stat.getPackageName(), stat.getTotalTimeInForeground()));
+//            Log.d("DAY_STAT", String.format("Package: %s Time: %s", stat.getPackageName(), stat.getTotalTimeInForeground()));
             totalTime += stat.getTotalTimeInForeground();
             if(stat.getTotalTimeInForeground() <= 5000) {
                 continue;
@@ -108,10 +104,31 @@ public class DailyStatsFragment extends CustomFragment {
             } catch (PackageManager.NameNotFoundException e) {
                 e.printStackTrace();
             }
+            final float usage = (float)stat.getTotalTimeInForeground()/1000f/60f/60f;
             final Drawable icon = this.getContext().getPackageManager().getApplicationIcon(app);
             final String name = this.getContext().getPackageManager().getApplicationLabel(app).toString();
-            appInfoItems.add(new AppInfoItem(name, (float)stat.getTotalTimeInForeground()/1000f/60f/60f, icon));
+            final AppInfoItem existingItem = appInfoItemExists(appInfoItems, stat.getPackageName());
+            if(existingItem != null) {
+                appInfoItems.remove(existingItem);
+                existingItem.setUsage(existingItem.getUsage() + usage);
+                appInfoItems.add(existingItem);
+                continue;
+            }
+            appInfoItems.add(new AppInfoItem(name, usage, icon, stat.getPackageName()));
         }
+        final Comparator<AppInfoItem> appInfoComparator = new Comparator<AppInfoItem>() {
+            @Override
+            public int compare(final AppInfoItem o1, final AppInfoItem o2) {
+                if (o1.getUsage() > o2.getUsage()) {
+                    return -1;
+                }
+                if(o1.getUsage() == o2.getUsage()) {
+                    return 0;
+                }
+                return 1;
+            }
+        };
+        Collections.sort(appInfoItems, appInfoComparator);
         final float totalTimeInHours = totalTime/1000f/60f/60f;
         final PieChart usageChart = view.findViewById(R.id.usageChart);
         final PieData data = new PieData();
@@ -139,6 +156,16 @@ public class DailyStatsFragment extends CustomFragment {
         }
     }
 
+    private AppInfoItem appInfoItemExists(final List<AppInfoItem> appInfoItems, final String packageID) {
+        for(final AppInfoItem item : appInfoItems) {
+            if(!item.getPackageID().equals(packageID)) {
+                continue;
+            }
+            return item;
+        }
+        return null;
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -156,4 +183,11 @@ public class DailyStatsFragment extends CustomFragment {
         mListener = null;
     }
 
+    public Calendar getCurrentDate() {
+        return currentDate;
+    }
+
+    public void setCurrentDate(Calendar currentDate) {
+        this.currentDate = currentDate;
+    }
 }

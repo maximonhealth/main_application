@@ -27,7 +27,9 @@
         <activity
             android:name=".SetupActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".DailyStatsActivity"></activity>
+        <activity
+            android:name=".DailyStatsActivity"
+            android:parentActivityName=".StartActivity"></activity>
     </application>
 
 </manifest>

@@ -7,13 +7,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.CalendarView;
-import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -72,15 +68,29 @@ public class MainActivity extends ActivityWrapper implements OnFragmentInteracti
     }
 
     public static List<UsageStats> queryDailyUsageStats(final Context context, final Calendar calendarDay) {
+        return queryDailyUsageStats(context, calendarDay,false);
+    }
+
+    public static List<UsageStats> queryDailyUsageStats(final Context context, final Calendar calendarDay, final boolean completeDay) {
         UsageStatsManager usageStatsManager = (UsageStatsManager) context.getSystemService(Context.USAGE_STATS_SERVICE);
-        final Calendar calendar = (Calendar) calendarDay.clone();
-        calendar.set(Calendar.HOUR, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
+        final Calendar calendar = floorToMidnight(calendarDay);
+        if(completeDay) {
+            Log.d("CAL_COMP", "REACHED");
+            calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) - 1);
+        }
+
         final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
         Log.d("CAL_INFO", simpleDateFormat.format(calendar.getTime()));
         return usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, calendar.getTimeInMillis(), calendarDay.getTimeInMillis());
+    }
+
+    public static Calendar floorToMidnight(final Calendar calendar) {
+        final Calendar clone = (Calendar)calendar.clone();
+        clone.set(Calendar.HOUR, 0);
+        clone.set(Calendar.MINUTE, 0);
+        clone.set(Calendar.SECOND, 0);
+        clone.set(Calendar.MILLISECOND, 0);
+        return clone;
     }
 
 
